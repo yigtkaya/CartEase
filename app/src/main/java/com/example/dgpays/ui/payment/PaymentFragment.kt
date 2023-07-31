@@ -11,6 +11,7 @@ import com.example.dgpays.R
 import com.example.dgpays.data.models.IyziReq
 import com.example.dgpays.databinding.FragmentBagBinding
 import com.example.dgpays.databinding.FragmentPaymentBinding
+import com.example.dgpays.ui.status.SuccessFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,10 +37,6 @@ class PaymentFragment: Fragment() {
             binding.tvAmount.text = sum.toString()
         })
         binding.creditCardView.setBankName("DGPays")
-
-
-
-
         binding.payButton.setOnClickListener {
             val cardNumber = binding.creditCardView.getCardNumber()
             val cardHolderName = binding.creditCardView.getNameOnCard()
@@ -66,14 +63,22 @@ class PaymentFragment: Fragment() {
                 )
 
                 viewModel.pay(body)
+
             }
+
+            viewModel.myResponse.observe(viewLifecycleOwner, Observer {
+                if (it.isSuccessful) {
+                    // replace fragment to success fragment after waiting a second
+                    parentFragmentManager.beginTransaction().apply {
+                        replace(R.id.flFragment, SuccessFragment())
+                        commit()
+                    }
+                }
+            })
 
         }
 
         return binding.root
     }
-
-    // getCardType function to detect the card provider return bitmap of the card provider
-
 
 }

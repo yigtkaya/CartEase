@@ -12,6 +12,7 @@ import com.example.dgpays.R
 import com.example.dgpays.databinding.FragmentBagBinding
 import com.example.dgpays.ui.adapters.ShoppingCartAdapter
 import com.example.dgpays.ui.payment.PaymentFragment
+import com.example.dgpays.ui.status.SuccessFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -45,16 +46,11 @@ class ShoppingBagFragment : Fragment() {
         }
 
         binding.peyButton.setOnClickListener {
-            replaceFragment(PaymentFragment())
+            parentFragmentManager.beginTransaction().apply {
+                replace(R.id.flFragment, PaymentFragment())
+                commit()
+            }
         }
         return binding.root
-    }
-
-    private fun replaceFragment(fragment : Fragment){
-        (activity as? MainActivity)?.supportFragmentManager?.beginTransaction()?.apply {
-            replace(R.id.flFragment, fragment)
-            addToBackStack(null)
-            commit()
-        }
     }
 }

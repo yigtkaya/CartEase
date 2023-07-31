@@ -43,6 +43,10 @@ object AppModule {
     @Singleton
     fun provideBasketDao(database: AppDatabase) = database.basketDao()
 
+    @Provides
+    @Singleton
+    fun provideOrderDao(database: AppDatabase) = database.orderDao()
+
 
     @Singleton
     @Provides
