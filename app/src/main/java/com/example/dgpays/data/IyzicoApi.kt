@@ -1,11 +1,12 @@
 package com.example.dgpays.data
 
-import retrofit2.http.GET
+import com.example.dgpays.data.models.IyzicoResponse
+import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.POST
-import retrofit2.http.Query
 
 interface IyzicoApi {
 
-    @POST("")
-    suspend fun pay(@Query)
+    @POST("/iyzico/pay")
+    suspend fun pay(@Body body: Map<String, Any>) : Response<IyzicoResponse>
 }
