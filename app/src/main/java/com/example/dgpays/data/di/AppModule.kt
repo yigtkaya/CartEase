@@ -5,12 +5,14 @@ import androidx.room.Room
 import com.example.dgpays.data.IyzicoApi
 import com.example.dgpays.data.database.AppDatabase
 import com.example.dgpays.main.repositories.PaymentRepositoryImpl
-import com.example.dgpays.main.repositories.PaymentRepository
+import com.example.dgpays.main.utils.DispatcherProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -22,14 +24,10 @@ object AppModule {
     @Provides
     @Singleton
     fun provideIyzicoApi() : IyzicoApi = Retrofit.Builder()
-        .baseUrl("http://10.0.2.2:3000/api")
+        .baseUrl("http://10.0.2.2:3000/api/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
         .create(IyzicoApi::class.java)
-
-    @Provides
-    @Singleton
-    fun provideIyzicoRepository(api: IyzicoApi) : PaymentRepository = PaymentRepositoryImpl(api)
 
     @Provides
     @Singleton
@@ -45,5 +43,18 @@ object AppModule {
     @Singleton
     fun provideBasketDao(database: AppDatabase) = database.basketDao()
 
+
+    @Singleton
+    @Provides
+    fun provideDispatcherProvider(): DispatcherProvider = object : DispatcherProvider {
+        override val main: CoroutineDispatcher
+            get() = Dispatchers.Main
+        override val io: CoroutineDispatcher
+            get() = Dispatchers.IO
+        override val default: CoroutineDispatcher
+            get() = Dispatchers.Default
+        override val unconfined: CoroutineDispatcher
+            get() = Dispatchers.Unconfined
+    }
 }
 

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.example.dgpays.databinding.FragmentBagBinding
 import com.example.dgpays.databinding.FragmentPaymentBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,9 +25,16 @@ class PaymentFragment: Fragment() {
     ): View {
         _binding = FragmentPaymentBinding.inflate(inflater, container, false)
 
+        viewModel.getAllBasketItems().observe(viewLifecycleOwner, Observer {
+            var sum = 0.0
+              for (i in it) {
+                 sum += i.amount * i.price
+              }
+
+            binding.tvAmount.text = sum.toString()
+        })
         binding.payButton.setOnClickListener {
             // send api call to iyzico pay
-
         }
         return binding.root
     }
