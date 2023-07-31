@@ -23,6 +23,11 @@ class PaymentFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPaymentBinding.inflate(inflater, container, false)
+
+        binding.payButton.setOnClickListener {
+            // send api call to iyzico pay
+
+        }
         return binding.root
     }
 }

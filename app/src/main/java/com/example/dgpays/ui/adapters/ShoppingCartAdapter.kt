@@ -23,7 +23,8 @@ class ShoppingCartAdapter(
         val currentItem = basket[position]
         holder.binding.apply {
             tvTitle.text = currentItem.name
-            tvPrice.text = currentItem.price.toString()
+            tvPrice.text = (currentItem.price * currentItem.amount).toString()
+            tvAmount.text = currentItem.amount.toString()
         }
     }
 
