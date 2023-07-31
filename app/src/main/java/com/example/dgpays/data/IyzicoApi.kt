@@ -7,6 +7,6 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface IyzicoApi {
-    @POST("/iyzico/pay")
+    @POST("/api/iyzico/pay")
     suspend fun pay(@Body body: IyziReq) : Response<IyzicoResponse>
 }

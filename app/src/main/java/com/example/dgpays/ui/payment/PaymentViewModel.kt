@@ -1,5 +1,6 @@
 package com.example.dgpays.ui.payment
 
+import android.graphics.Bitmap
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -25,13 +26,14 @@ class PaymentViewModel @Inject constructor(
     fun pay(body: IyziReq) {
         viewModelScope.launch(dispatcher.io) {
             val result = paymentRepository.pay(body)
-            myResponse.value = result
+            myResponse.postValue(result)
         }
     }
 
     fun getAllBasketItems() = basketRepository.getAllBasketItems()
 
-    fun luhnAlgorithm(cardNumber: String): Boolean {
+    fun luhnAlgorithm(cardNumber: String?): Boolean {
+        if (cardNumber.isNullOrEmpty()) return false
         var sum = 0
         var alternate = false
         for (i in cardNumber.length - 1 downTo 0) {
@@ -47,35 +49,14 @@ class PaymentViewModel @Inject constructor(
         }
         return sum % 10 == 0
     }
-    fun isExpired(expiryDate: String): Boolean {
-        if (expiryDate.isEmpty()) return false
-        // create a date time today and check if the expiry date is in the past
-        val month = expiryDate.substring(0, 2).toInt()
-        val year = expiryDate.substring(3, 5).toInt()
-
-        if (month > 12 || month < 1) return false
-
-        val date = System.currentTimeMillis()
-        val monthToday = date.toString().substring(4, 6).toInt()
-        val yearToday = date.toString().substring(2, 4).toInt()
-
-        return yearToday > year || (yearToday == year && monthToday > month)
+    fun isExpired(month: Int, year: Int): Boolean {
+        return month > 12 || year < 23
     }
-    fun getCardType(cardNumber: String): String {
-        return when {
-            isTroy(cardNumber) -> "Troy"
-            isMasterCard(cardNumber) -> "MasterCard"
-            isVisa(cardNumber) -> "Visa"
-            isAmex(cardNumber) -> "Amex"
-            else -> "Unknown"
-        }
-    }
-    fun isCvvValid(cvv: String): Boolean {
+    fun isCvvValid(cvv: String?): Boolean {
+        if (cvv.isNullOrEmpty()) return false
         return cvv.length <= 4
     }
-    fun isTroy(cardNumber: String): Boolean {
-        return cardNumber.startsWith("9")
-    }
+
     fun isMasterCard(cardNumber: String): Boolean {
         return cardNumber.startsWith("5")
     }
@@ -85,5 +66,4 @@ class PaymentViewModel @Inject constructor(
     fun isAmex(cardNumber: String): Boolean {
         return cardNumber.startsWith("34") || cardNumber.startsWith("37")
     }
-
 }
