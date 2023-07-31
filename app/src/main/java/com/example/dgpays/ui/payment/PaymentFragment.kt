@@ -9,8 +9,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.dgpays.R
 import com.example.dgpays.data.models.IyziReq
+import com.example.dgpays.data.models.Order
 import com.example.dgpays.databinding.FragmentBagBinding
 import com.example.dgpays.databinding.FragmentPaymentBinding
+import com.example.dgpays.ui.status.FailureFragment
 import com.example.dgpays.ui.status.SuccessFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -66,13 +68,30 @@ class PaymentFragment: Fragment() {
 
             }
 
-            viewModel.myResponse.observe(viewLifecycleOwner, Observer {
-                if (it.isSuccessful) {
+            viewModel.myResponse.observe(viewLifecycleOwner, Observer { response ->
+                if (response.body()?.status == "success") {
+                    response.body()?.let {
+                        val order = Order(
+                            maskedCardNumber = cardNumber.toString().take(6) + "******" + cardNumber.toString().takeLast(4),
+                            paid = true,
+                            orderTime = it.systemTime.toLong(),
+                            totalPrice = it.price ?: 0.0,
+                            )
+                        viewModel.saveOrder(order)
+                    }
+
                     // replace fragment to success fragment after waiting a second
                     parentFragmentManager.beginTransaction().apply {
                         replace(R.id.flFragment, SuccessFragment())
                         commit()
                     }
+                }
+                else if (response.body()?.status == "failure") {
+                    parentFragmentManager.beginTransaction().apply {
+                        replace(R.id.flFragment, FailureFragment())
+                        commit()
+                    }
+                    // show error message
                 }
             })
 

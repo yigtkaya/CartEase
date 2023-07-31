@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dgpays.data.models.IyziReq
 import com.example.dgpays.data.models.IyzicoResponse
+import com.example.dgpays.data.models.Order
 import com.example.dgpays.main.repositories.BasketRepository
+import com.example.dgpays.main.repositories.OrderRepository
 import com.example.dgpays.main.repositories.PaymentRepositoryImpl
 import com.example.dgpays.main.utils.DispatcherProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +21,8 @@ import javax.inject.Inject
 class PaymentViewModel @Inject constructor(
     private val paymentRepository: PaymentRepositoryImpl,
     private val dispatcher: DispatcherProvider,
-    private val basketRepository: BasketRepository
+    private val basketRepository: BasketRepository,
+    private val orderRepository: OrderRepository
 ): ViewModel() {
 
     var myResponse : MutableLiveData<Response<IyzicoResponse>> = MutableLiveData()
@@ -66,4 +69,9 @@ class PaymentViewModel @Inject constructor(
     fun isAmex(cardNumber: String): Boolean {
         return cardNumber.startsWith("34") || cardNumber.startsWith("37")
     }
+
+    fun saveOrder(order: Order) = viewModelScope.launch(dispatcher.io) {
+        orderRepository.upsertOrder(order)
+    }
+
 }
