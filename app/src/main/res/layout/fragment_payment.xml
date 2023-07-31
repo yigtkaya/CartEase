@@ -31,9 +31,9 @@
 
     <com.github.credit_card_view.CreditCardView
         android:id="@+id/creditCardView"
-        android:padding="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="16dp"
         app:card_autoFocusCardNumber="true"
         app:card_backGradientEnd="#626262"
         app:card_backGradientStart="#2D2D2D"
@@ -57,7 +57,9 @@
         app:card_outline_base_color="#EBB46A"
         app:card_outline_error_color="#EB6A6E"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.345"
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
         android:id="@+id/payButton"

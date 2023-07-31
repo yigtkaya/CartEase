@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.example.dgpays.data.models.IyziReq
 import com.example.dgpays.databinding.FragmentBagBinding
 import com.example.dgpays.databinding.FragmentPaymentBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,9 +34,22 @@ class PaymentFragment: Fragment() {
 
             binding.tvAmount.text = sum.toString()
         })
-        binding.payButton.setOnClickListener {
-            // send api call to iyzico pay
+
+        // check the cardType after the user enters the card number
+        binding.creditCardView.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                val cardNumber = binding.creditCardView.getCardNumber()
+                if (cardNumber != null) {
+
+                }
+            }
         }
+
+
+        binding.payButton.setOnClickListener {
+            // check if the card is valid, expiry date is not in the past, cvv length is correct etc.
+        }
+
         return binding.root
     }
 }
