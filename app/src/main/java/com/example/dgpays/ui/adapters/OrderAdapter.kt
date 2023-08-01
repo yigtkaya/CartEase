@@ -36,7 +36,7 @@ class OrderAdapter(
             }
             tvAmount.text = currentItem.totalPrice.toString()
             tvCardNumber.text = currentItem.maskedCardNumber
-            tvTime.text = currentItem.orderTime.toString()
+            tvTime.text = currentItem.orderTime
         }
 
         holder.binding.cancelButton.setOnClickListener {

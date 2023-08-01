@@ -51,6 +51,8 @@
             android:text="Ödendi"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:background="@color/green"
+            android:padding="8dp"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

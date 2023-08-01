@@ -91,7 +91,7 @@ class PaymentFragment: Fragment() {
                         val order = Order(
                             maskedCardNumber = cardNumber.toString().take(6) + "******" + cardNumber.toString().takeLast(4),
                             paid = true,
-                            orderTime = it.systemTime.toLong(),
+                            orderTime = viewModel.convertLongToTime(it.systemTime.toLong()),
                             totalPrice = it.price ?: 0.0,
                             orderId = it.paymentId!!.toInt(),
                             )

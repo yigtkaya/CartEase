@@ -9,6 +9,6 @@ data class Order(
     val orderId: Int = 0,
     val maskedCardNumber: String,
     val totalPrice: Double,
-    val orderTime: Long,
+    val orderTime: String,
     var paid: Boolean,
 )

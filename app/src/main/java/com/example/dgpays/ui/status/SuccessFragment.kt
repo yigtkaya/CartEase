@@ -34,7 +34,7 @@ class SuccessFragment(
 
         binding.maskedCardNoTextView.text = order.maskedCardNumber
         binding.amountTextView.text = order.totalPrice.toString()
-        binding.orderIdTextView.text = viewModel.convertLongToDate(order.orderTime).toString()
+        binding.orderIdTextView.text = order.orderTime
         binding.orderIdTextView.text = order.orderId.toString()
 
         binding.backButton.setOnClickListener {

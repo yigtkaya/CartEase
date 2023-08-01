@@ -18,6 +18,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.Date
 import javax.inject.Inject
 @HiltViewModel
 class PaymentViewModel @Inject constructor(
@@ -85,4 +87,9 @@ class PaymentViewModel @Inject constructor(
         }
     }
 
+    fun convertLongToTime(time: Long): String {
+        val date = Date(time)
+        val format = SimpleDateFormat("MM.dd.yyyy HH:mm")
+        return format.format(date)
+    }
 }
