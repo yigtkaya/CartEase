@@ -33,6 +33,9 @@ class PaymentViewModel @Inject constructor(
         }
     }
 
+    fun clearBasket() = viewModelScope.launch(dispatcher.io) {
+        basketRepository.deleteAllBasketItems()
+    }
     fun getAllBasketItems() = basketRepository.getAllBasketItems()
 
     fun luhnAlgorithm(cardNumber: String?): Boolean {

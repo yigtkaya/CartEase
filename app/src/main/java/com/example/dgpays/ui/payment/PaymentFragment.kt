@@ -78,11 +78,16 @@ class PaymentFragment: Fragment() {
                             totalPrice = it.price ?: 0.0,
                             )
                         viewModel.saveOrder(order)
-                    }
+                        viewModel.clearBasket()
 
-                    // replace fragment to success fragment after waiting a second
+                        parentFragmentManager.beginTransaction().apply {
+                            replace(R.id.flFragment, SuccessFragment(order))
+                            commit()
+                        }
+                    }
+                } else {
                     parentFragmentManager.beginTransaction().apply {
-                        replace(R.id.flFragment, SuccessFragment())
+                        replace(R.id.flFragment, FailureFragment(viewModel.myResponse))
                         commit()
                     }
                 }
