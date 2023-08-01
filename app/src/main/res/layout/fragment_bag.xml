@@ -22,15 +22,16 @@
 
     <TextView
         android:id="@+id/tvAmountTitle"
-        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="24dp"
         android:text="Adet"
         android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tvPriceTitle"
+        app:layout_constraintStart_toEndOf="@+id/tvProductTitle"
         app:layout_constraintTop_toTopOf="parent" />
 
 
