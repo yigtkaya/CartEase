@@ -69,7 +69,7 @@ class PaymentFragment: Fragment() {
                 ) && viewModel.isEmailValid(email) && city.isNotEmpty() && country.isNotEmpty() && address.isNotEmpty() && viewModel.isCvvValid(cvv)) {
                 var body = IyziReq(
                     cardHolderName,
-                    cardHolderName.toString().split(" ")[1],
+                    cardHolderName.toString().split(" ")[1] ?: cardHolderName,
                     email = email,
                     address = address,
                     city = city,

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dgpays.data.models.Order
 import com.example.dgpays.databinding.OrderItemBinding
 import com.example.dgpays.ui.transactions.TransactionsViewModel
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -22,6 +23,7 @@ class OrderAdapter(
         return OrderViewHolder(binding)
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         val currentItem = orders[position]
 
@@ -31,7 +33,7 @@ class OrderAdapter(
                 tvStatus.text = "Paid"
                 tvStatus.setBackgroundColor(Color.GREEN)
             } else {
-                tvStatus.text = "Not Paid"
+                tvStatus.text = "Cancelled"
                 tvStatus.setBackgroundColor(Color.RED)
             }
             tvAmount.text = currentItem.totalPrice.toString()

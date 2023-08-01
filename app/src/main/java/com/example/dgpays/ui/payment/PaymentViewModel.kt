@@ -31,9 +31,13 @@ class PaymentViewModel @Inject constructor(
 
     var myResponse : MutableLiveData<Response<IyzicoResponse>> = MutableLiveData()
     fun pay(body: IyziReq) {
-        viewModelScope.launch(dispatcher.io) {
-            val result = paymentRepository.pay(body)
-            myResponse.postValue(result)
+        try {
+            viewModelScope.launch(dispatcher.io) {
+                val result = paymentRepository.pay(body)
+                myResponse.postValue(result)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 

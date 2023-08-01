@@ -14,11 +14,6 @@ class ShoppingBagViewModel @Inject constructor(
 
     fun getAllBasketItems() = repository.getAllBasketItems()
 
-    suspend fun deleteBasketItem(basketItem: Basket) = repository.deleteBasketItem(basketItem.id)
-
-    suspend fun upsertBasketItem(basketItem: Basket) =
-        repository.updateBasketItemAmount(basketItem.id, basketItem.amount)
-
     fun deleteAllBasketItems() {
         viewModelScope.launch {
             repository.deleteAllBasketItems()

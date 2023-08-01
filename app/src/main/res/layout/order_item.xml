@@ -38,7 +38,6 @@
             android:layout_height="39dp"
             android:layout_margin="12dp"
             android:textSize="8sp"
-            android:background="@drawable/rounded_button"
             android:text="Cancel"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
