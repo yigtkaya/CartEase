@@ -22,7 +22,6 @@
     <TextView
         android:id="@+id/tvAmount"
         android:layout_width="0dp"
-
         android:layout_height="wrap_content"
         android:text="10.0 Tl"
         android:maxLength="5"
@@ -100,6 +99,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             android:hint="Email" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -116,6 +116,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
+            android:maxLines="2"
             android:hint="Address" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -131,6 +132,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             android:hint="City"
             android:padding="16dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -147,6 +149,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             android:hint="Country"
             android:padding="16dp" />
     </com.google.android.material.textfield.TextInputLayout>
