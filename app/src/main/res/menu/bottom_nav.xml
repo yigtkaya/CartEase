@@ -4,8 +4,8 @@
     <item android:title="Home"
         android:id="@+id/homeFragment"
         android:icon="@drawable/ic_baseline_home_24"/>
-    <item android:title="Orders"
-        android:id="@+id/orderFragment"
+    <item android:title="Transactions"
+        android:id="@+id/transactionsFragment"
         android:icon="@drawable/ic_coupon"/>
     <item android:title="Bag"
         android:id="@+id/bagFragment"

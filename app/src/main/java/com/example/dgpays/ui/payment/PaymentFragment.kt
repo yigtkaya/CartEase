@@ -86,13 +86,6 @@ class PaymentFragment: Fragment() {
                         commit()
                     }
                 }
-                else if (response.body()?.status == "failure") {
-                    parentFragmentManager.beginTransaction().apply {
-                        replace(R.id.flFragment, FailureFragment())
-                        commit()
-                    }
-                    // show error message
-                }
             })
 
         }

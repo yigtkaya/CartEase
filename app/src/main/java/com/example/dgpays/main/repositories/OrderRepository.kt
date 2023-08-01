@@ -13,4 +13,6 @@ class OrderRepository @Inject constructor(
     suspend fun updatePaidStatus(orderId: Int, paid: Boolean) = OrderDao.updatePaidStatus(orderId, paid)
 
     suspend fun upsertOrder(order: Order) = OrderDao.upsertOrder(order)
+
+    fun getAllOrders() = OrderDao.getAllOrders()
 }

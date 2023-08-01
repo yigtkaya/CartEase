@@ -5,8 +5,8 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.dgpays.databinding.ActivityMainBinding
 import com.example.dgpays.ui.home.HomeFragment
-import com.example.dgpays.ui.Profile
 import com.example.dgpays.ui.bag.ShoppingBagFragment
+import com.example.dgpays.ui.transactions.TransactionsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
 
                 R.id.homeFragment -> replaceFragment(HomeFragment())
-                R.id.orderFragment -> replaceFragment(Profile())
+                R.id.transactionsFragment -> replaceFragment(TransactionsFragment())
                 R.id.bagFragment -> replaceFragment(ShoppingBagFragment())
 
                 else ->{}
