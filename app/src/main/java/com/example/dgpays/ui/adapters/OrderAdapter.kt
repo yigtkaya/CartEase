@@ -40,6 +40,7 @@ class OrderAdapter(
         }
 
         holder.binding.cancelButton.setOnClickListener {
+            if (currentItem.paid) return@setOnClickListener
             GlobalScope.launch {
                 viewModel.updatePaidStatus(currentItem.orderId, false)
             }
