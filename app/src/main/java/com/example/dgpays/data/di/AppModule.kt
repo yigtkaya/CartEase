@@ -24,7 +24,7 @@ object AppModule {
     @Provides
     @Singleton
     fun provideIyzicoApi() : IyzicoApi = Retrofit.Builder()
-        .baseUrl("http://10.0.2.2:3000/")
+        .baseUrl("https://dgpays-case.onrender.com/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
         .create(IyzicoApi::class.java)

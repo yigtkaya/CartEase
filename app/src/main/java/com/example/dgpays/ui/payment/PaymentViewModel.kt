@@ -1,6 +1,8 @@
 package com.example.dgpays.ui.payment
 
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
+import android.media.Image
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -37,6 +39,9 @@ class PaymentViewModel @Inject constructor(
         basketRepository.deleteAllBasketItems()
     }
     fun getAllBasketItems() = basketRepository.getAllBasketItems()
+    fun saveOrder(order: Order) = viewModelScope.launch(dispatcher.io) {
+        orderRepository.upsertOrder(order)
+    }
 
     fun luhnAlgorithm(cardNumber: String?): Boolean {
         if (cardNumber.isNullOrEmpty()) return false
@@ -55,6 +60,11 @@ class PaymentViewModel @Inject constructor(
         }
         return sum % 10 == 0
     }
+
+    fun isEmailValid(email: String?): Boolean {
+        if (email.isNullOrEmpty()) return false
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
     fun isExpired(month: Int, year: Int): Boolean {
         return month > 12 || year < 23
     }
@@ -63,18 +73,16 @@ class PaymentViewModel @Inject constructor(
         return cvv.length <= 4
     }
 
-    fun isMasterCard(cardNumber: String): Boolean {
-        return cardNumber.startsWith("5")
-    }
-    fun isVisa(cardNumber: String): Boolean {
-        return cardNumber.startsWith("4")
-    }
-    fun isAmex(cardNumber: String): Boolean {
-        return cardNumber.startsWith("34") || cardNumber.startsWith("37")
-    }
-
-    fun saveOrder(order: Order) = viewModelScope.launch(dispatcher.io) {
-        orderRepository.upsertOrder(order)
+    fun getCardProviderDrawable(cardNumber: String?): Int {
+        if (cardNumber.isNullOrEmpty()) return com.example.dgpays.R.drawable.ic_mastercard_icon
+        return when {
+            cardNumber.startsWith("34") || cardNumber.startsWith("37") -> com.example.dgpays.R.drawable.ic_amex_icon
+            cardNumber.startsWith("5") -> com.example.dgpays.R.drawable.ic_mastercard_icon
+            cardNumber.startsWith("4") -> com.example.dgpays.R.drawable.ic_visa_icon
+            cardNumber.startsWith("9792") -> com.example.dgpays.R.drawable.ic_troy_icon
+            cardNumber.startsWith("62") -> com.example.dgpays.R.drawable.ic_paypal_icon
+            else -> com.example.dgpays.R.drawable.ic_discover_icon
+        }
     }
 
 }
