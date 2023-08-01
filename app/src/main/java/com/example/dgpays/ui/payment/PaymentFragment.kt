@@ -81,6 +81,7 @@ class PaymentFragment: Fragment() {
                     (expiryDate?.year ?: 30).toString(),
                     cvv,
                 )
+                ContextCompat.getDrawable(requireContext(), viewModel.getCardProviderDrawable(binding.creditCardView.getCardNumber()))
                 viewModel.pay(body)
             }
 
